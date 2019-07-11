@@ -1,0 +1,12 @@
+startDelaySeconds: 5
+lowercaseOutputName: true
+rules:
+  - pattern: kafka.connect<type=connector-task-metrics, connector=(.+), task=(.+)><>([a-z-]+)
+    name: kafka_connect_connector_task_$3
+    labels:
+      connector: "$1"
+      task: "$2"
+  - pattern: kafka.connect<type=connector-metrics, connector=(.+)><>([a-z-]+)
+    name: kafka_connect_connector_$2
+    labels:
+      connector: "$1"
