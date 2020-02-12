@@ -26,7 +26,7 @@ services:
       - zookeeper
 
   schema-registry:
-    image: confluentinc/cp-schema-registry:5.2.2
+    image: confluentinc/cp-schema-registry:5.4.0
     hostname: schema-registry
     depends_on:
       - zookeeper
@@ -54,7 +54,7 @@ services:
       - ./src/main/resources/plugins:/etc/plugins
 
   ksql-server:
-    image: confluentinc/cp-ksql-server:5.2.2
+    image: confluentinc/cp-ksql-server:5.4.0
     depends_on:
       - kafka
       - schema-registry
@@ -67,11 +67,11 @@ services:
       KSQL_KSQL_SERVICE_ID: test-ksql
       KSQL_CONFLUENT_SUPPORT_METRICS_ENABLE: "false"
 
-  kafka-init:
-    image: bitnami/kafka
-    command: "/etc/kafka-init/start.sh"
-    volumes:
-      - ./src/test/config/kafka-init:/etc/kafka-init
-    depends_on:
-      - zookeeper
-      - kafka
+  # kafka-init:
+  #   image: bitnami/kafka
+  #   command: "/etc/kafka-init/start.sh"
+  #   volumes:
+  #     - ./src/test/config/kafka-init:/etc/kafka-init
+  #   depends_on:
+  #     - zookeeper
+  #     - kafka

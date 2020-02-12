@@ -12,10 +12,8 @@
       Confluent version must match Kafka version
       https://docs.confluent.io/current/installation/versions-interoperability.html
       <-->
-        <kafka.version>2.3.0</kafka.version>
-        <confluent.version>5.2.2</confluent.version>
-        <debezium-connector-mongodb.version>0.9.3.Final</debezium-connector-mongodb.version>
-        <logging.version>2.11.2</logging.version>
+        <kafka.version>2.4.0</kafka.version>
+        <confluent.version>5.4.0</confluent.version>
     </properties>
 
     <dependencies>
@@ -36,17 +34,6 @@
             <artifactId>connect-runtime</artifactId>
             <version>${kafka.version}</version>
             <scope>runtime</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>io.debezium</groupId>
-            <artifactId>debezium-connector-mongodb</artifactId>
-            <version>${debezium-connector-mongodb.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
@@ -55,43 +42,48 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- My custom JDBC -->
+        <!-- mongoDB -->
         <dependency>
-            <groupId>org.sendoh</groupId>
-            <artifactId>kafka-connect-jdbc</artifactId>
-            <version>1.0.0</version>
-            <scope>runtime</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.mongodb.kafka</groupId>
+            <artifactId>mongo-kafka-connect</artifactId>
+             <version>1.0.0</version>
+             <scope>runtime</scope>
+              <exclusions>
+                  <exclusion>
+                      <groupId>log4j</groupId>
+                      <artifactId>log4j</artifactId>
+                  </exclusion>
+                  <exclusion>
+                      <groupId>org.slf4j</groupId>
+                      <artifactId>slf4j-log4j12</artifactId>
+                  </exclusion>
+              </exclusions>
+        </dependency>
+        <dependency>
+             <groupId>org.mongodb</groupId>
+             <artifactId>mongodb-driver-sync</artifactId>
+             <version>3.12.1</version>
         </dependency>
 
         <!-- Note that Kakfa-Connect runs with java8 and driver must match Kafka-Connect version-->
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <version>7.2.2.jre8</version>
+            <version>8.2.0.jre11</version>
         </dependency>
 
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
-        </dependency>
         <dependency>
             <groupId>io.prometheus.jmx</groupId>
             <artifactId>jmx_prometheus_javaagent</artifactId>
-            <version>0.11.0</version>
+            <version>0.12.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.logstash.log4j</groupId>
+            <artifactId>jsonevent-layout</artifactId>
+            <version>1.7</version>
         </dependency>
     </dependencies>
-
     <build>
         <defaultGoal>package</defaultGoal>
         <plugins>
@@ -111,4 +103,14 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+          <!-->
+            Browse avaiable packages
+            https://docs.confluent.io/current/installation/available_packages.html
+          <-->
+            <id>io.confluent</id>
+            <url>http://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
 </project>
